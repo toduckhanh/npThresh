@@ -1,16 +1,17 @@
 Package: npThresh
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Nonparametric frameworks for evaluation the accuracy of biomarkers 
 Version: 0.1.0
-Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
-  )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Author: Duc-Khanh To [aut, cre] (<https://orcid.org/0000-0002-4641-0764>)
+Maintainer: Duc-Khanh To <tdkhanh@hcmus.edu.vn>
+Description: This package provides a nonparametric frameworks for evaluation the accuracy of biomarkers and selection optimal thresholds.
+Depends: R (>= 3.5.0), stats, utils, graphics, Rcpp (>= 0.12.3)
+LinkingTo: Rcpp, RcppArmadillo
 Encoding: UTF-8
 LazyData: true
+LazyLoad: yes
+ByteCompile: yes
+RoxygenNote: 7.2.3
+NeedsCompilation: yes
+URL: https://github.com/toduckhanh/npThresh
+BugReports: https://github.com/toduckhanh/npThresh/issues
