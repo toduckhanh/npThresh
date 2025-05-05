@@ -5,3 +5,11 @@ cdf_kernel_C <- function(x, X, Ktype, bwd) {
     .Call(`_npThresh_cdf_kernel_C`, x, X, Ktype, bwd)
 }
 
+cdf_loocv_kernel_C <- function(x, X, Ktype, bwd, hx) {
+    .Call(`_npThresh_cdf_loocv_kernel_C`, x, X, Ktype, bwd, hx)
+}
+
+cv_bwd_C <- function(x, X, Ktype, hx, bwd_pts) {
+    .Call(`_npThresh_cv_bwd_C`, x, X, Ktype, hx, bwd_pts)
+}
+

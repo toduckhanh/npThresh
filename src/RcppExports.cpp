@@ -25,9 +25,41 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cdf_loocv_kernel_C
+double cdf_loocv_kernel_C(NumericVector x, NumericVector X, int Ktype, double bwd, double hx);
+RcppExport SEXP _npThresh_cdf_loocv_kernel_C(SEXP xSEXP, SEXP XSEXP, SEXP KtypeSEXP, SEXP bwdSEXP, SEXP hxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type Ktype(KtypeSEXP);
+    Rcpp::traits::input_parameter< double >::type bwd(bwdSEXP);
+    Rcpp::traits::input_parameter< double >::type hx(hxSEXP);
+    rcpp_result_gen = Rcpp::wrap(cdf_loocv_kernel_C(x, X, Ktype, bwd, hx));
+    return rcpp_result_gen;
+END_RCPP
+}
+// cv_bwd_C
+List cv_bwd_C(NumericVector x, NumericVector X, int Ktype, double hx, int bwd_pts);
+RcppExport SEXP _npThresh_cv_bwd_C(SEXP xSEXP, SEXP XSEXP, SEXP KtypeSEXP, SEXP hxSEXP, SEXP bwd_ptsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type Ktype(KtypeSEXP);
+    Rcpp::traits::input_parameter< double >::type hx(hxSEXP);
+    Rcpp::traits::input_parameter< int >::type bwd_pts(bwd_ptsSEXP);
+    rcpp_result_gen = Rcpp::wrap(cv_bwd_C(x, X, Ktype, hx, bwd_pts));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_npThresh_cdf_kernel_C", (DL_FUNC) &_npThresh_cdf_kernel_C, 4},
+    {"_npThresh_cdf_loocv_kernel_C", (DL_FUNC) &_npThresh_cdf_loocv_kernel_C, 5},
+    {"_npThresh_cv_bwd_C", (DL_FUNC) &_npThresh_cv_bwd_C, 5},
     {NULL, NULL, 0}
 };
 
