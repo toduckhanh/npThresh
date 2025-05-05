@@ -32,3 +32,22 @@ static inline double Kernel(int Ktype, double x){
 }
 
 // define the F_kernel
+// [[Rcpp::export]]
+NumericVector cdf_kernel_C(NumericVector x, NumericVector X, int Ktype,
+                         double bwd){
+  // x: points to compute CDF
+  // X: data
+  // Ktype: type of kernel, 0 - Gaussian, 1 - Epanechnikov
+  // bwd: bandwidth
+  int n = X.size(), m = x.size();
+  double uij = 0;
+  NumericVector num(m);
+  for(int i = 0; i < m; i++){
+    for(int j = 0; j < n; j++){
+      uij = (x[i] - X[j])/bwd;
+      num[i] += Kernel(Ktype, uij);
+    }
+  }
+  return num/n;
+}
+

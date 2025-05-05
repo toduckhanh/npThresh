@@ -11,82 +11,27 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
-// vusC_U
-double vusC_U(NumericVector tt1, NumericVector tt2, NumericVector tt3);
-RcppExport SEXP _emplikROCS_vusC_U(SEXP tt1SEXP, SEXP tt2SEXP, SEXP tt3SEXP) {
+// cdf_kernel_C
+NumericVector cdf_kernel_C(NumericVector x, NumericVector X, int Ktype, double bwd);
+RcppExport SEXP _npThresh_cdf_kernel_C(SEXP xSEXP, SEXP XSEXP, SEXP KtypeSEXP, SEXP bwdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type tt1(tt1SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type tt2(tt2SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type tt3(tt3SEXP);
-    rcpp_result_gen = Rcpp::wrap(vusC_U(tt1, tt2, tt3));
-    return rcpp_result_gen;
-END_RCPP
-}
-// vusC_varEL
-NumericVector vusC_varEL(NumericVector tt1, NumericVector tt2, NumericVector tt3);
-RcppExport SEXP _emplikROCS_vusC_varEL(SEXP tt1SEXP, SEXP tt2SEXP, SEXP tt3SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type tt1(tt1SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type tt2(tt2SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type tt3(tt3SEXP);
-    rcpp_result_gen = Rcpp::wrap(vusC_varEL(tt1, tt2, tt3));
-    return rcpp_result_gen;
-END_RCPP
-}
-// vusC_full_core
-List vusC_full_core(NumericVector tt1, NumericVector tt2, NumericVector tt3);
-RcppExport SEXP _emplikROCS_vusC_full_core(SEXP tt1SEXP, SEXP tt2SEXP, SEXP tt3SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type tt1(tt1SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type tt2(tt2SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type tt3(tt3SEXP);
-    rcpp_result_gen = Rcpp::wrap(vusC_full_core(tt1, tt2, tt3));
-    return rcpp_result_gen;
-END_RCPP
-}
-// place_U
-NumericVector place_U(NumericVector tt1, NumericVector tt2, NumericVector tt3);
-RcppExport SEXP _emplikROCS_place_U(SEXP tt1SEXP, SEXP tt2SEXP, SEXP tt3SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type tt1(tt1SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type tt2(tt2SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type tt3(tt3SEXP);
-    rcpp_result_gen = Rcpp::wrap(place_U(tt1, tt2, tt3));
-    return rcpp_result_gen;
-END_RCPP
-}
-// vusC_ties
-double vusC_ties(NumericVector tt1, NumericVector tt2, NumericVector tt3);
-RcppExport SEXP _emplikROCS_vusC_ties(SEXP tt1SEXP, SEXP tt2SEXP, SEXP tt3SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type tt1(tt1SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type tt2(tt2SEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type tt3(tt3SEXP);
-    rcpp_result_gen = Rcpp::wrap(vusC_ties(tt1, tt2, tt3));
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type Ktype(KtypeSEXP);
+    Rcpp::traits::input_parameter< double >::type bwd(bwdSEXP);
+    rcpp_result_gen = Rcpp::wrap(cdf_kernel_C(x, X, Ktype, bwd));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_emplikROCS_vusC_U", (DL_FUNC) &_emplikROCS_vusC_U, 3},
-    {"_emplikROCS_vusC_varEL", (DL_FUNC) &_emplikROCS_vusC_varEL, 3},
-    {"_emplikROCS_vusC_full_core", (DL_FUNC) &_emplikROCS_vusC_full_core, 3},
-    {"_emplikROCS_place_U", (DL_FUNC) &_emplikROCS_place_U, 3},
-    {"_emplikROCS_vusC_ties", (DL_FUNC) &_emplikROCS_vusC_ties, 3},
+    {"_npThresh_cdf_kernel_C", (DL_FUNC) &_npThresh_cdf_kernel_C, 4},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_emplikROCS(DllInfo *dll) {
+RcppExport void R_init_npThresh(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }
