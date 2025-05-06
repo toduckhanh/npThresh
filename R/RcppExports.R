@@ -9,7 +9,11 @@ cdf_loocv_kernel_C <- function(x, X, Ktype, bwd, hx) {
     .Call(`_npThresh_cdf_loocv_kernel_C`, x, X, Ktype, bwd, hx)
 }
 
-cv_bwd_C <- function(x, X, Ktype, hx, bwd_pts) {
-    .Call(`_npThresh_cv_bwd_C`, x, X, Ktype, hx, bwd_pts)
+cv_bwd_C <- function(x, X, Ktype, hx, bwd_seq) {
+    .Call(`_npThresh_cv_bwd_C`, x, X, Ktype, hx, bwd_seq)
+}
+
+PCO_bwd_C <- function(X, Ktype, bwd_seq) {
+    .Call(`_npThresh_PCO_bwd_C`, X, Ktype, bwd_seq)
 }
 

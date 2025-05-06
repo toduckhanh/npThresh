@@ -5,7 +5,7 @@ Version: 0.1.0
 Author: Duc-Khanh To [aut, cre] (<https://orcid.org/0000-0002-4641-0764>)
 Maintainer: Duc-Khanh To <tdkhanh@hcmus.edu.vn>
 Description: This package provides a nonparametric frameworks for evaluation the accuracy of biomarkers and selection optimal thresholds.
-Depends: R (>= 3.5.0), stats, utils, graphics, Rcpp (>= 0.12.3)
+Depends: R (>= 3.5.0), stats, utils, graphics, Rcpp (>= 0.12.3), randtoolbox
 LinkingTo: Rcpp, RcppArmadillo
 Encoding: UTF-8
 LazyData: true

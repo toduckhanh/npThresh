@@ -9,17 +9,6 @@
 using namespace Rcpp;
 using namespace arma;
 
-
-// define the k(u) kernel function
-static inline double kernel(int Ktype, double x){
-  if(Ktype == 0) return exp(-x*x/2)/sqrt(2*M_PI); // Gauss kernel
-  else{ // if(Ktype == 1)
-    if(fabs(x) <= 1) return 3*(1 - x*x)/4; // Epanechnikov kernel
-    else return 0;
-  }
-  // else return 0;
-}
-
 // define the K(u) cumulative kernel function
 static inline double Kernel(int Ktype, double x){
   if(Ktype == 0) return R::pnorm(x, 0.0, 1.0, 1, 0); // Gauss kernel
@@ -101,18 +90,18 @@ double cdf_loocv_kernel_C(NumericVector x, NumericVector X, int Ktype,
 // define the LOOCV bandwidth
 // [[Rcpp::export]]
 List cv_bwd_C(NumericVector x, NumericVector X, int Ktype, double hx,
-              int bwd_pts){
-  arma::vec bwd_seq = linspace((max(X) - min(X))/200.0, (max(X) - min(X))/2.0,
-                               bwd_pts);
+              NumericVector bwd_seq){
+  arma::vec bwds = as<vec>(bwd_seq);
+  double bwd_pts = bwds.size();
   arma::vec cv_out(bwd_pts, fill::zeros);
   for(int i = 0; i < bwd_pts; i++){
-    cv_out[i] = cdf_loocv_kernel_C(x, X, Ktype, bwd_seq[i], hx);
+    cv_out[i] = cdf_loocv_kernel_C(x, X, Ktype, bwds[i], hx);
   }
   double id_h_cv = cv_out.index_min();
   List out;
-  out["bwd_seq"] = wrap(bwd_seq);
+  out["bwd_seq"] = wrap(bwds);
   out["cv_out"] = wrap(cv_out);
-  out["h_opt"] = bwd_seq[id_h_cv];
+  out["h_opt"] = bwds[id_h_cv];
   return out;
 }
 

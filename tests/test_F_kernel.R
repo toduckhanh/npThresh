@@ -149,28 +149,55 @@ system.time({
   out_kerd <- CVbw(type_kernel = "n", vec_data = x)
 })
 
-# LOOCV bandwidth ----
-x <- rnorm(100)
+# selection bandwidth ----
+x <- rnorm(100, 1, 4)
+
+out_bwd_rt <- bwd_plugin(X = x, bwd_method = "RT")
+out_bwd_azz <- bwd_plugin(X = x, bwd_method = "AZZ")
+
 system.time({
-  out_cv_bwd_f <- bwd_cv(X = x, kernel_type = "gauss")
+  out_bwd_cv <- bwd_cv(X = x, kernel_type = "gauss", method_grid = "grid")
 })
-out_cv_bwd_f$h_opt
-bwd_plugin(X = x, bwd_method = "RT")
-bwd_plugin(X = x, bwd_method = "AZZ")
+out_bwd_cv$h_opt
+
+system.time({
+  out_bwd_cv_2 <- bwd_cv(X = x, kernel_type = "gauss", method_grid = "sobol")
+})
+out_bwd_cv_2$h_opt
+
+system.time({
+  out_bwd_pco <- bwd_pco(X = x, kernel_type = "gauss", n_bwd = 101,
+                         method_grid = "sobol")
+})
+out_bwd_pco$h_opt
+plot(out_bwd_pco$bwd_seq, out_bwd_pco$f_target, type = "l")
+
+system.time({
+  out_bwd_pco_2 <- bwd_pco(X = x, kernel_type = "gauss", n_bwd = 101,
+                           method_grid = "grid")
+})
+out_bwd_pco_2$h_opt
+plot(out_bwd_pco_2$bwd_seq, out_bwd_pco_2$f_target, type = "l")
+
 
 x_F <- ecdf(x)
 x_grid <- seq(min(x), max(x), by = 0.01)
 
-u1 <- cdf_kernel(x = x_grid, X = x, kernel_type = "gauss",
-                 bwd = out_cv_bwd_f$h_opt)
-u2 <- cdf_kernel(x = x_grid, X = x, kernel_type = "gauss",
-                 bwd = bwd_plugin(X = x, bwd_method = "RT"))
+u1 <- cdf_kernel(x = x_grid, X = x, kernel_type = "gauss", bwd = out_bwd_rt)
+u2 <- cdf_kernel(x = x_grid, X = x, kernel_type = "gauss", bwd = out_bwd_azz)
 u3 <- cdf_kernel(x = x_grid, X = x, kernel_type = "gauss",
-                 bwd = bwd_plugin(X = x, bwd_method = "AZZ"))
+                 bwd = out_bwd_cv$h_opt)
+u4 <- cdf_kernel(x = x_grid, X = x, kernel_type = "gauss",
+                 bwd = out_bwd_pco$h_opt)
+u5 <- cdf_kernel(x = x_grid, X = x, kernel_type = "gauss",
+                 bwd = out_bwd_pco_2$h_opt)
 
-plot(x_grid, x_F(x_grid), type = "l")
+plot(x_grid, x_F(x_grid), type = "l", col = "gray60")
+lines(x_grid, pnorm(x_grid, mean = 1, sd = 4), col = "green")
 lines(x_grid, u1, col = "blue")
-lines(x_grid, pnorm(x_grid), col = "green")
 lines(x_grid, u2, col = "red", lty = 2)
 lines(x_grid, u3, col = "pink", lty = 2)
+lines(x_grid, u4, col = "black")
+lines(x_grid, u5, col = "black", lty = 2)
+
 

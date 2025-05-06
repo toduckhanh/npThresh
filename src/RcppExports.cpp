@@ -41,8 +41,8 @@ BEGIN_RCPP
 END_RCPP
 }
 // cv_bwd_C
-List cv_bwd_C(NumericVector x, NumericVector X, int Ktype, double hx, int bwd_pts);
-RcppExport SEXP _npThresh_cv_bwd_C(SEXP xSEXP, SEXP XSEXP, SEXP KtypeSEXP, SEXP hxSEXP, SEXP bwd_ptsSEXP) {
+List cv_bwd_C(NumericVector x, NumericVector X, int Ktype, double hx, NumericVector bwd_seq);
+RcppExport SEXP _npThresh_cv_bwd_C(SEXP xSEXP, SEXP XSEXP, SEXP KtypeSEXP, SEXP hxSEXP, SEXP bwd_seqSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -50,8 +50,21 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type X(XSEXP);
     Rcpp::traits::input_parameter< int >::type Ktype(KtypeSEXP);
     Rcpp::traits::input_parameter< double >::type hx(hxSEXP);
-    Rcpp::traits::input_parameter< int >::type bwd_pts(bwd_ptsSEXP);
-    rcpp_result_gen = Rcpp::wrap(cv_bwd_C(x, X, Ktype, hx, bwd_pts));
+    Rcpp::traits::input_parameter< NumericVector >::type bwd_seq(bwd_seqSEXP);
+    rcpp_result_gen = Rcpp::wrap(cv_bwd_C(x, X, Ktype, hx, bwd_seq));
+    return rcpp_result_gen;
+END_RCPP
+}
+// PCO_bwd_C
+List PCO_bwd_C(NumericVector X, int Ktype, NumericVector bwd_seq);
+RcppExport SEXP _npThresh_PCO_bwd_C(SEXP XSEXP, SEXP KtypeSEXP, SEXP bwd_seqSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type Ktype(KtypeSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type bwd_seq(bwd_seqSEXP);
+    rcpp_result_gen = Rcpp::wrap(PCO_bwd_C(X, Ktype, bwd_seq));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -60,6 +73,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_npThresh_cdf_kernel_C", (DL_FUNC) &_npThresh_cdf_kernel_C, 4},
     {"_npThresh_cdf_loocv_kernel_C", (DL_FUNC) &_npThresh_cdf_loocv_kernel_C, 5},
     {"_npThresh_cv_bwd_C", (DL_FUNC) &_npThresh_cv_bwd_C, 5},
+    {"_npThresh_PCO_bwd_C", (DL_FUNC) &_npThresh_PCO_bwd_C, 3},
     {NULL, NULL, 0}
 };
 
