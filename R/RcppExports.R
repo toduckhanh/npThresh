@@ -17,3 +17,7 @@ PCO_bwd_C <- function(X, Ktype, bwd_seq) {
     .Call(`_npThresh_PCO_bwd_C`, X, Ktype, bwd_seq)
 }
 
+cdf_proj_C <- function(x, X, a, b, M) {
+    .Call(`_npThresh_cdf_proj_C`, x, X, a, b, M)
+}
+

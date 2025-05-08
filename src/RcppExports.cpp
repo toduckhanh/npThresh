@@ -68,12 +68,28 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cdf_proj_C
+NumericVector cdf_proj_C(NumericVector x, NumericVector X, double a, double b, int M);
+RcppExport SEXP _npThresh_cdf_proj_C(SEXP xSEXP, SEXP XSEXP, SEXP aSEXP, SEXP bSEXP, SEXP MSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type X(XSEXP);
+    Rcpp::traits::input_parameter< double >::type a(aSEXP);
+    Rcpp::traits::input_parameter< double >::type b(bSEXP);
+    Rcpp::traits::input_parameter< int >::type M(MSEXP);
+    rcpp_result_gen = Rcpp::wrap(cdf_proj_C(x, X, a, b, M));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_npThresh_cdf_kernel_C", (DL_FUNC) &_npThresh_cdf_kernel_C, 4},
     {"_npThresh_cdf_loocv_kernel_C", (DL_FUNC) &_npThresh_cdf_loocv_kernel_C, 5},
     {"_npThresh_cv_bwd_C", (DL_FUNC) &_npThresh_cv_bwd_C, 5},
     {"_npThresh_PCO_bwd_C", (DL_FUNC) &_npThresh_PCO_bwd_C, 3},
+    {"_npThresh_cdf_proj_C", (DL_FUNC) &_npThresh_cdf_proj_C, 5},
     {NULL, NULL, 0}
 };
 
