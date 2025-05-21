@@ -64,3 +64,43 @@ NumericVector cdf_proj_C(NumericVector x, NumericVector X, double a, double b,
   }
   return out_cdf;
 }
+
+static inline double B2_coef(NumericVector u, double rt, int M, int n){
+  int k = 2*M + 1;
+  NumericVector Bj(k);
+  Bj[0] = 1/sqrt(2);
+  NumericVector ui(n);
+  int id_even, id_odd;
+  for (int i = 1; i < M + 1; i++){
+    ui = i*u;
+    id_even = 2*i;
+    id_odd = id_even - 1;
+    Bj[id_even] = my_mean(ui, n, 1);
+    Bj[id_odd] = my_mean(ui, n, 0);
+  }
+  Bj = Bj*sqrt(2)/sqrt(rt);
+  double Bj2 = 0.0;
+  for(int i = 0; i < k; i++){
+    Bj2 += pow(Bj[i], 2);
+  }
+  return Bj2;
+}
+
+// define the projection penalty
+// [[Rcpp::export]]
+NumericVector proj_pen_C(NumericVector X, double a, double b, NumericVector Mj,
+                         double kappa){
+  int n = X.size(), n_m = Mj.size();
+  double rt = b - a;
+  double kappa1 = kappa/(n*rt);
+  NumericVector X_tt = 2.0*M_PI*(X - a)/rt;
+  // obtain the penalty
+  NumericVector loss(n_m);
+  for(int i = 0; i < n_m; i++){
+    loss[i] = (-1.0)*B2_coef(X_tt, rt, Mj[i], n) + kappa1*(2*Mj[i] + 1);
+  }
+  return loss;
+}
+
+
+

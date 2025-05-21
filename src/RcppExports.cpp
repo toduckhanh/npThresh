@@ -25,6 +25,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// simpson
+double simpson(arma::vec fx, int nx, double hx);
+RcppExport SEXP _npThresh_simpson(SEXP fxSEXP, SEXP nxSEXP, SEXP hxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type fx(fxSEXP);
+    Rcpp::traits::input_parameter< int >::type nx(nxSEXP);
+    Rcpp::traits::input_parameter< double >::type hx(hxSEXP);
+    rcpp_result_gen = Rcpp::wrap(simpson(fx, nx, hx));
+    return rcpp_result_gen;
+END_RCPP
+}
 // cdf_loocv_kernel_C
 double cdf_loocv_kernel_C(NumericVector x, NumericVector X, int Ktype, double bwd, double hx);
 RcppExport SEXP _npThresh_cdf_loocv_kernel_C(SEXP xSEXP, SEXP XSEXP, SEXP KtypeSEXP, SEXP bwdSEXP, SEXP hxSEXP) {
@@ -83,13 +96,30 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// proj_pen_C
+NumericVector proj_pen_C(NumericVector X, double a, double b, NumericVector Mj, double kappa);
+RcppExport SEXP _npThresh_proj_pen_C(SEXP XSEXP, SEXP aSEXP, SEXP bSEXP, SEXP MjSEXP, SEXP kappaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type X(XSEXP);
+    Rcpp::traits::input_parameter< double >::type a(aSEXP);
+    Rcpp::traits::input_parameter< double >::type b(bSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type Mj(MjSEXP);
+    Rcpp::traits::input_parameter< double >::type kappa(kappaSEXP);
+    rcpp_result_gen = Rcpp::wrap(proj_pen_C(X, a, b, Mj, kappa));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_npThresh_cdf_kernel_C", (DL_FUNC) &_npThresh_cdf_kernel_C, 4},
+    {"_npThresh_simpson", (DL_FUNC) &_npThresh_simpson, 3},
     {"_npThresh_cdf_loocv_kernel_C", (DL_FUNC) &_npThresh_cdf_loocv_kernel_C, 5},
     {"_npThresh_cv_bwd_C", (DL_FUNC) &_npThresh_cv_bwd_C, 5},
     {"_npThresh_PCO_bwd_C", (DL_FUNC) &_npThresh_PCO_bwd_C, 3},
     {"_npThresh_cdf_proj_C", (DL_FUNC) &_npThresh_cdf_proj_C, 5},
+    {"_npThresh_proj_pen_C", (DL_FUNC) &_npThresh_proj_pen_C, 5},
     {NULL, NULL, 0}
 };
 

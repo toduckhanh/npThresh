@@ -5,6 +5,10 @@ cdf_kernel_C <- function(x, X, Ktype, bwd) {
     .Call(`_npThresh_cdf_kernel_C`, x, X, Ktype, bwd)
 }
 
+simpson <- function(fx, nx, hx) {
+    .Call(`_npThresh_simpson`, fx, nx, hx)
+}
+
 cdf_loocv_kernel_C <- function(x, X, Ktype, bwd, hx) {
     .Call(`_npThresh_cdf_loocv_kernel_C`, x, X, Ktype, bwd, hx)
 }
@@ -19,5 +23,9 @@ PCO_bwd_C <- function(X, Ktype, bwd_seq) {
 
 cdf_proj_C <- function(x, X, a, b, M) {
     .Call(`_npThresh_cdf_proj_C`, x, X, a, b, M)
+}
+
+proj_pen_C <- function(X, a, b, Mj, kappa) {
+    .Call(`_npThresh_proj_pen_C`, X, a, b, Mj, kappa)
 }
 

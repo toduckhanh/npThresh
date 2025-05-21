@@ -41,7 +41,9 @@ NumericVector cdf_kernel_C(NumericVector x, NumericVector X, int Ktype,
 }
 
 // define Simpson's rule integral
-static inline double simpson(arma::vec fx, int nx, double hx){
+// static inline
+// [[Rcpp::export]]
+double simpson(arma::vec fx, int nx, double hx){
   // nx must be an even number - the number of intervals
   double res = 0.0;
   int pl, pr, pmid;
